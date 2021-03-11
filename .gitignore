@@ -3,7 +3,7 @@
 /_output/
 /_artifacts/
 /build/kube-scheduler
-/kubernetes@v1.19.0
+
 # used for the code generators only
 /vendor/
 
