@@ -1,0 +1,59 @@
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+leaderElection:
+  leaderElect: false
+clientConnection:
+  kubeconfig: "/etc/kubernetes/scheduler.conf"
+profiles:
+  - schedulerName: concurrent-scheduler
+    plugins:
+      preFilter:
+        enabled:
+          - name: ConcurrentScheduling
+      filter:
+        disabled:
+          - name: "*"
+        enabled:
+          - name: ConcurrentScheduling
+          - name: TaintToleration
+          - name: NodeName
+          - name: NodePorts
+          - name: NodeAffinity
+          - name: PodTopologySpread
+          - name: NodeUnschedulable
+          - name: NodeResourcesFit
+          - name: VolumeBinding
+          - name: VolumeRestrictions
+          - name: VolumeZone
+          - name: NodeVolumeLimits
+          - name: EBSLimits
+          - name: GCEPDLimits
+          - name: AzureDiskLimits
+          - name: NodeLabel
+          - name: ServiceAffinity
+          - name: InterPodAffinity
+  - schedulerName: default-scheduler
+    plugins:
+      filter:
+        disabled:
+          - name: "*"
+        enabled:
+          - name: TaintToleration
+          - name: NodeName
+          - name: NodePorts
+          - name: NodeAffinity
+          - name: PodTopologySpread
+          - name: NodeUnschedulable
+          - name: NodeResourcesFit
+          - name: VolumeBinding
+          - name: VolumeRestrictions
+          - name: VolumeZone
+          - name: NodeVolumeLimits
+          - name: EBSLimits
+          - name: GCEPDLimits
+          - name: AzureDiskLimits
+          - name: NodeLabel
+          - name: ServiceAffinity
+          - name: InterPodAffinity
+
+

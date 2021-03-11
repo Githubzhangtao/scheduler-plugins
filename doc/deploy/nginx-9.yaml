@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-100
+  labels:
+    app: nginx-100
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginx-100
+      netRequest: "100"
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx-100
+        netRequest: "100"
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 500Mi
+          requests:
+            cpu: 1000m
+            memory: 500Mi
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-200
+  labels:
+    app: nginx-200
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginx-200
+      netRequest: "200"
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx-200
+        netRequest: "200"
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 500Mi
+          requests:
+            cpu: 1000m
+            memory: 500Mi
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-300
+  labels:
+    app: nginx-300
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginx-300
+      netRequest: "300"
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx-300
+        netRequest: "300"
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 500Mi
+          requests:
+            cpu: 1000m
+            memory: 500Mi

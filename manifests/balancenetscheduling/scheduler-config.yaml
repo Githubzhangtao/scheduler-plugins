@@ -1,0 +1,38 @@
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+leaderElection:
+  leaderElect: false
+clientConnection:
+  kubeconfig: "/etc/kubernetes/scheduler.conf"
+profiles:
+  - schedulerName: default-scheduler
+    plugins:
+      preFilter:
+        enabled:
+          - name: BalanceNetScheduling
+      preScore:
+        disabled:
+          - name: SelectorSpread
+      score:
+        disabled:
+          - name: NodeResourcesBalancedAllocation
+          - name: NodeResourcesLeastAllocated
+          - name: SelectorSpread
+        enabled:
+          - name: BalanceNetScheduling
+            weight: 1000
+    pluginConfig:
+      - name: BalanceNetScheduling
+        args:
+          resourceToWeightMap:
+            - name: cpu
+              weight: 1
+            - name: mem
+              weight: 1
+            - name: net
+              weight: 1
+          kubeConfigPath: "/etc/kubernetes/scheduler.conf"
+          kubeMaster: "https://127.0.0.1:46756"
+
+
+
